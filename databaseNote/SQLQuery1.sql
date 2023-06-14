@@ -18,9 +18,11 @@ GO
 CREATE TABLE Content (
 idNote INT NOT NULL PRIMARY KEY IDENTITY,
 title NVARCHAR(1000) NOT NULL,
-note TEXT,
+note NVARCHAR(MAx),
 idUser INT NOT NULL REFERENCES dbo.Account(idUser)
 )
+ALTER TABLE dbo.Content
+ALTER COLUMN note NVARCHAR(MAx);
 go
 INSERT INTO dbo.Account
 (
@@ -34,16 +36,9 @@ VALUES
 (   'b','2','a2','a@2'),
 (   'c','3','a3','a@3')
 SELECT * FROM dbo.Account
-INSERT INTO dbo.Content
-(
-    
-    title,
-    note,
-    idUser
-)
-GO
+go
 
-alter PROC USP_SelectbyID (@Id int)
+create PROC USP_SelectbyID (@Id int)
 AS
 BEGIN
 SELECT title AS [Tiêu đề], note AS[Nội dung], idNote AS Id FROM dbo.Content WHERE idUser = @ID 
@@ -61,7 +56,7 @@ BEGIN
 
 END
 go
-alter proc USP_InsertNote(@title NVARCHAR(1000), @mess NVARCHAR(4000), @idUser int)
+create proc USP_InsertNote(@title NVARCHAR(1000), @mess NVARCHAR(4000), @idUser int)
 AS
 BEGIN
 	INSERT INTO dbo.Content
@@ -75,15 +70,22 @@ SELECT *FROM dbo.Content
 GO
 
 
-UPDATE dbo.Content SET title = 'babababba', note = '213444444' WHERE idNote = 1
-GO
 
-ALTER PROC USP_UpdateNote(@idNote int, @title Nvarchar(1000), @note NVARCHAR(4000))
+
+create PROC USP_UpdateNote(@idNote int, @title Nvarchar(1000), @note NVARCHAR(4000))
  AS
  BEGIN
 	UPDATE dbo.Content SET title = @title, note = @note WHERE idNote = @idNote
  END
  GO
 
+EXEC dbo.USP_UpdateNote @idNote = 0,  -- int
+                        @title = N'', -- nvarchar(1000)
+                        @note = N''   -- nvarchar(4000)
+select *FROM  dbo.Content
 
+ EXEC dbo.USP_InsertNote @title = N'bốn bảy năm mười', -- nvarchar(1000)
+                         @mess = N'bốn bảy năm mười',  -- nvarchar(4000)
+                         @idUser = 1   -- int
+ 
 

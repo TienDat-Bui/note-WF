@@ -9,13 +9,15 @@ using WindowsFormsApp1.DTO;
 namespace WindowsFormsApp1.DAO
 {
     public class AccountDAO
-    {
+    {   
+        //function login
         public bool Login(string userName, string passWord)
         {
             Dataprovider provider = new Dataprovider();
             DataTable result = provider.ExcuteQuery("EXEC dbo.USP_Login @userName , @pass", new object[] { userName, passWord });
             return result.Rows.Count > 0;
         }
+        //function getaccountbyID
        public AccountDTO GetAccountByUser(string userName)
         {
             Dataprovider provider = new Dataprovider();

@@ -10,7 +10,9 @@ namespace WindowsFormsApp1.DAO
 {
     class Dataprovider
     {
-       private string connectString = @"Data Source=DESKTOP-IA7RJ2Q\SQLEXPRESS;Initial Catalog=Note;Integrated Security=True";
+       private string connectString = @"Data Source=LAPTOP-U3NKBQ13\DAT;Initial Catalog=Note;Persist Security Info=True;User ID=sa; Password =123456";
+
+        // lấy dữ liệu từ database trả về tất cả dữ liệu
         public DataTable ExcuteQuery(string query, object[] parameter=null)//
         {
             DataTable dt = new DataTable();
@@ -38,6 +40,7 @@ namespace WindowsFormsApp1.DAO
                 return dt;
             }
         }
+        // lấy dữ liệu ở database trả về số dòng bị ảnh hưởng
         public int ExcuteNoneQuery(string query, object[] parameter = null)//
         {
             int dt = 0;
@@ -59,6 +62,7 @@ namespace WindowsFormsApp1.DAO
                         }
                     }
                 }
+                
                 dt = cmd.ExecuteNonQuery();
                 con.Close();
                 return dt;
